@@ -2,6 +2,74 @@ from flask import Blueprint, request
 
 bg9_40323218_3 = Blueprint('bg9_40323218_3', __name__, url_prefix='/bg9_40323218_3', template_folder='templates')
 
+@bg9_40323218_3.route('/hw_w18')
+def hw_w18():
+    outstring = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>網際 2D 繪圖</title>
+    <!-- IE 9: display inline SVG -->
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+<script type="text/javascript" src="http://brython.info/src/brython_dist.js"></script>
+<script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango-8v03.js"></script>
+<script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango2D-6v13.js"></script>
+<script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/CangoAxes-1v33.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+brython(1);
+}
+</script>
+<canvas id="plotarea" width="800" height="800"></canvas>
+<script type="text/python">
+from javascript import JSConstructor
+from browser import window
+import math
+cango = JSConstructor(window.Cango)
+cobj = JSConstructor(window.Cobj)
+shapedefs = window.shapeDefs
+obj2d = JSConstructor(window.Obj2D)
+cgo = cango("plotarea")
+cgo.setWorldCoords(-250, -250, 500, 500) 
+
+        
+#cgo.drawText("使用 Cango 繪圖程式庫!", 0, 0, {"fontSize":60, "fontWeight": 1200, "lorg":5 })
+deg = math.pi/180  
+def O(x, y, rx, ry, rot, color, border, linewidth):
+    # 旋轉必須要針對相對中心 rot not working yet
+    chamber = "M12.449 5.386 A7.501,7.501 0 0,0 5.387,12.440 A7.501,7.501 0 0,0 11.586,20.264 A15.000,15.000 0 0,0 16.586,37.591 A15.000,15.000 0 0,0 34.620,37.590 A15.000,15.000 0 0,0 39.620,20.263 A7.499,7.499 0 0,0 45.818,12.447 A7.499,7.499 0 0,0 38.769,5.389 A7.499,7.499 0 0,0 30.945,11.579 A14.861,14.861 0 0,0 20.266,11.593 A7.501,7.501 0 0,0 12.449,5.386 M19.603 23.518 A3.880,3.880 0 0,1 15.723,19.637 A3.880,3.880 0 0,1 19.603,15.757 A3.880,3.880 0 0,1 23.483,19.637 A3.880,3.880 0 0,1 19.603,23.518 M31.603 23.650 A4.013,4.013 0 0,1 27.590,19.637 A4.013,4.013 0 0,1 31.603,15.625 A4.013,4.013 0 0,1 35.616,19.637 A4.013,4.013 0 0,1 31.603,23.650 M21.586 35.332 L21.586,31.332 L29.586,31.332 L29.586,35.332 L21.586,35.332 z"
+    cgoChamber = window.svgToCgoSVG(chamber)
+    cmbr = cobj(cgoChamber, "SHAPE", {
+            "fillColor": color,
+            "border": border,
+            "strokeColor": "tan",
+            "lineWidth": linewidth })
+            
+            
+            
+    cmbr.translate(0, 20)    
+            
+ 
+   
+    
+    
+    # hole 為原點位置
+    #hole = cobj(shapedefs.circle(4), "PATH") 
+    #cmbr.appendPath(hole) 
+
+  
+    # 放大 1 倍
+    cgo.render(cmbr, x, y, 3, rot)
+    
+O(0, 0, 0, 0, 0, "red", True, 4)
+</script>
+
+
+'''
+    return outstring
 @bg9_40323218_3.route('/fourcircle', defaults={'n1':17,'n2':29,'n3':15,'n4':23})
 @bg9_40323218_3.route('/fourcircle/<n1>/<n2>/<n3>/<n4>')
 def draw_fourcircle(n1, n2, n3,n4):

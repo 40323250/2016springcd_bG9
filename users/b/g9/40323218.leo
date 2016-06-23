@@ -29,7 +29,7 @@
 </v>
 </v>
 </v>
-<v t="amd.20160501215545.1"><vh>wsgi 程式部份</vh>
+<v t="amd.20160501215545.1" a="E"><vh>wsgi 程式部份</vh>
 <v t="leo.20160519114041.1"><vh>@clean bg9_40323218_1.py</vh>
 <v t="leo.20160519114236.1"><vh>bg9_40323218_1 declarations</vh></v>
 <v t="leo.20160519095246.5"><vh>circle36</vh></v>
@@ -54,8 +54,9 @@
 <v t="leo.20160615104906.2"><vh>bg9_40323218_2 declarations</vh></v>
 <v t="leo.20160615104906.3"><vh>draw_threecircle</vh></v>
 </v>
-<v t="leo.20160615105135.1"><vh>@clean bg9_40323218_3.py</vh>
+<v t="leo.20160615105135.1" a="E"><vh>@clean bg9_40323218_3.py</vh>
 <v t="leo.20160615105529.1"><vh>bg9_40323218_3 declarations</vh></v>
+<v t="leo.20160623101709.1"><vh>hw_w18</vh></v>
 <v t="leo.20160615105529.2"><vh>draw_fourcircle</vh></v>
 </v>
 <v t="amd.20160501221015.1"><vh>@path ./../../../</vh>
@@ -78,6 +79,12 @@
 <v t="amd.20160501230850.1"><vh>send_blog</vh></v>
 <v t="amd.20160501225844.1"><vh>send_file</vh></v>
 </v>
+</v>
+</v>
+<v t="leo.20160623101700.2" a="E"><vh>Recovered Nodes</vh>
+<v t="leo.20160623101700.3"><vh>Recovered node "myflaskapp declarations" from @clean myflaskapp.py</vh>
+<v t="leo.20160623101700.4"><vh>old:myflaskapp declarations</vh></v>
+<v t="leo.20160623101700.5"><vh>new:myflaskapp declarations</vh></v>
 </v>
 </v>
 </vnodes>
@@ -111,6 +118,9 @@ if __name__ == "__main__":
     
 
 app.register_blueprint(users.b.g9.bg9_40323250.bg9_40323250)
+app.register_blueprint(users.b.g9.bg9_40323214.bg9_40323214)
+app.register_blueprint(users.b.g9.bg9_40323214_2.bg9_40323214_2)
+app.register_blueprint(users.b.g9.bg9_40323250_2.bg9_40323250_2)
 app.register_blueprint(users.b.g9.bg9_40323233_1.bg9_40323233_1)
 app.register_blueprint(users.b.g9.bg9_40323218_1.bg9_40323218_1)
 app.register_blueprint(users.b.g9.bg9_40323218_2.bg9_40323218_2)
@@ -276,8 +286,10 @@ import users.b.g9.bg9_40323231_4
 import users.b.g9.bg9_40323230_2
 import users.b.g9.bg9_40323230
 import users.b.g9.bg9_40323250
+import users.b.g9.bg9_40323214
+import users.b.g9.bg9_40323250_2
+import users.b.g9.bg9_40323214_2
 import users.b.g9.bg9_40323233_1
-
 import users.b.g9.bg9_40323233_1
 import users.b.g9.bg9_40323233_2
 
@@ -1873,5 +1885,265 @@ spur(cx+pr1+pr2+pr2+pr3+pr3+pr4, cy, m, n4, pa, 180-180/n4+(180-180/n3)*n3/n4)
     return outstring
 </t>
 <t tx="leo.20160616031850.1"></t>
+<t tx="leo.20160623101700.2"></t>
+<t tx="leo.20160623101700.3">(uncached) amd.20160501221001.2
+Diff...
+  # coding: utf-8
+  from flask import Flask, send_from_directory, request, redirect, render_template, session, make_response
+  import random
+  import math
+  import os
+  # init.py 為自行建立的起始物件
+  import init
+  
+  
+  import users.b.g9.bg9_40323218_1
+  import users.b.g9.bg9_40323218_2
+  import users.b.g9.bg9_40323218_3
+  import users.b.g9.bg9_40323231_1
+  import users.b.g9.bg9_40323231_2
+  import users.b.g9.bg9_40323231_3
+  import users.b.g9.bg9_40323231_4
+  import users.b.g9.bg9_40323230_2
+  import users.b.g9.bg9_40323230
+  import users.b.g9.bg9_40323250
+- import users.b.g9.bg9_40323214
+- import users.b.g9.bg9_40323250_2
+- import users.b.g9.bg9_40323214_2
+  import users.b.g9.bg9_40323233_1
++ 
+  import users.b.g9.bg9_40323233_1
+  import users.b.g9.bg9_40323233_2
+  
+  
+  #import users.b.g9.bg9_40323250_3
+  
+  
+  # 確定程式檔案所在目錄, 在 Windows 有最後的反斜線
+  _curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+  # 設定在雲端與近端的資料儲存目錄
+  if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+      # 表示程式在雲端執行
+      data_dir = os.environ['OPENSHIFT_DATA_DIR']
+      static_dir = os.environ['OPENSHIFT_REPO_DIR']+"/static"
+      download_dir = os.environ['OPENSHIFT_DATA_DIR']+"/downloads"
+  else:
+      # 表示程式在近端執行
+      data_dir = _curdir + "/local_data/"
+      static_dir = _curdir + "/static"
+      download_dir = _curdir + "/local_data/downloads/"
+  
+  # 利用 init.py 啟動, 建立所需的相關檔案
+  initobj = init.Init()
+  
+  # 必須先將 download_dir 設為 static_folder, 然後才可以用於 download 方法中的 app.static_folder 的呼叫
+  app = Flask(__name__)
+  #app.config['download_dir'] = download_dir
+  
+  # 使用 session 必須要設定 secret_key
+  # In order to use sessions you have to set a secret key
+  # set the secret key.  keep this really secret:
+  app.secret_key = 'A0Zr9@8j/3yX R~XHH!jmN]LWX/,?R@T'
+  
+  
+  
+  
+  
+  
+  
+</t>
+<t tx="leo.20160623101700.4"># coding: utf-8
+from flask import Flask, send_from_directory, request, redirect, render_template, session, make_response
+import random
+import math
+import os
+# init.py 為自行建立的起始物件
+import init
+
+
+import users.b.g9.bg9_40323218_1
+import users.b.g9.bg9_40323218_2
+import users.b.g9.bg9_40323218_3
+import users.b.g9.bg9_40323231_1
+import users.b.g9.bg9_40323231_2
+import users.b.g9.bg9_40323231_3
+import users.b.g9.bg9_40323231_4
+import users.b.g9.bg9_40323230_2
+import users.b.g9.bg9_40323230
+import users.b.g9.bg9_40323250
+import users.b.g9.bg9_40323233_1
+
+import users.b.g9.bg9_40323233_1
+import users.b.g9.bg9_40323233_2
+
+
+#import users.b.g9.bg9_40323250_3
+
+
+# 確定程式檔案所在目錄, 在 Windows 有最後的反斜線
+_curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+# 設定在雲端與近端的資料儲存目錄
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    # 表示程式在雲端執行
+    data_dir = os.environ['OPENSHIFT_DATA_DIR']
+    static_dir = os.environ['OPENSHIFT_REPO_DIR']+"/static"
+    download_dir = os.environ['OPENSHIFT_DATA_DIR']+"/downloads"
+else:
+    # 表示程式在近端執行
+    data_dir = _curdir + "/local_data/"
+    static_dir = _curdir + "/static"
+    download_dir = _curdir + "/local_data/downloads/"
+
+# 利用 init.py 啟動, 建立所需的相關檔案
+initobj = init.Init()
+
+# 必須先將 download_dir 設為 static_folder, 然後才可以用於 download 方法中的 app.static_folder 的呼叫
+app = Flask(__name__)
+#app.config['download_dir'] = download_dir
+
+# 使用 session 必須要設定 secret_key
+# In order to use sessions you have to set a secret key
+# set the secret key.  keep this really secret:
+app.secret_key = 'A0Zr9@8j/3yX R~XHH!jmN]LWX/,?R@T'
+
+
+
+
+
+
+
+</t>
+<t tx="leo.20160623101700.5"># coding: utf-8
+from flask import Flask, send_from_directory, request, redirect, render_template, session, make_response
+import random
+import math
+import os
+# init.py 為自行建立的起始物件
+import init
+
+
+import users.b.g9.bg9_40323218_1
+import users.b.g9.bg9_40323218_2
+import users.b.g9.bg9_40323218_3
+import users.b.g9.bg9_40323231_1
+import users.b.g9.bg9_40323231_2
+import users.b.g9.bg9_40323231_3
+import users.b.g9.bg9_40323231_4
+import users.b.g9.bg9_40323230_2
+import users.b.g9.bg9_40323230
+import users.b.g9.bg9_40323250
+import users.b.g9.bg9_40323214
+import users.b.g9.bg9_40323250_2
+import users.b.g9.bg9_40323214_2
+import users.b.g9.bg9_40323233_1
+import users.b.g9.bg9_40323233_1
+import users.b.g9.bg9_40323233_2
+
+
+#import users.b.g9.bg9_40323250_3
+
+
+# 確定程式檔案所在目錄, 在 Windows 有最後的反斜線
+_curdir = os.path.join(os.getcwd(), os.path.dirname(__file__))
+# 設定在雲端與近端的資料儲存目錄
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    # 表示程式在雲端執行
+    data_dir = os.environ['OPENSHIFT_DATA_DIR']
+    static_dir = os.environ['OPENSHIFT_REPO_DIR']+"/static"
+    download_dir = os.environ['OPENSHIFT_DATA_DIR']+"/downloads"
+else:
+    # 表示程式在近端執行
+    data_dir = _curdir + "/local_data/"
+    static_dir = _curdir + "/static"
+    download_dir = _curdir + "/local_data/downloads/"
+
+# 利用 init.py 啟動, 建立所需的相關檔案
+initobj = init.Init()
+
+# 必須先將 download_dir 設為 static_folder, 然後才可以用於 download 方法中的 app.static_folder 的呼叫
+app = Flask(__name__)
+#app.config['download_dir'] = download_dir
+
+# 使用 session 必須要設定 secret_key
+# In order to use sessions you have to set a secret key
+# set the secret key.  keep this really secret:
+app.secret_key = 'A0Zr9@8j/3yX R~XHH!jmN]LWX/,?R@T'
+
+
+
+
+
+
+
+</t>
+<t tx="leo.20160623101709.1">@bg9_40323218_3.route('/hw_w18')
+def hw_w18():
+    outstring = '''
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;網際 2D 繪圖&lt;/title&gt;
+    &lt;!-- IE 9: display inline SVG --&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=9"&gt;
+&lt;script type="text/javascript" src="http://brython.info/src/brython_dist.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango-8v03.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango2D-6v13.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/CangoAxes-1v33.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+&lt;script type="text/python"&gt;
+from javascript import JSConstructor
+from browser import window
+import math
+cango = JSConstructor(window.Cango)
+cobj = JSConstructor(window.Cobj)
+shapedefs = window.shapeDefs
+obj2d = JSConstructor(window.Obj2D)
+cgo = cango("plotarea")
+cgo.setWorldCoords(-250, -250, 500, 500) 
+
+        
+#cgo.drawText("使用 Cango 繪圖程式庫!", 0, 0, {"fontSize":60, "fontWeight": 1200, "lorg":5 })
+deg = math.pi/180  
+def O(x, y, rx, ry, rot, color, border, linewidth):
+    # 旋轉必須要針對相對中心 rot not working yet
+    chamber = "M12.449 5.386 A7.501,7.501 0 0,0 5.387,12.440 A7.501,7.501 0 0,0 11.586,20.264 A15.000,15.000 0 0,0 16.586,37.591 A15.000,15.000 0 0,0 34.620,37.590 A15.000,15.000 0 0,0 39.620,20.263 A7.499,7.499 0 0,0 45.818,12.447 A7.499,7.499 0 0,0 38.769,5.389 A7.499,7.499 0 0,0 30.945,11.579 A14.861,14.861 0 0,0 20.266,11.593 A7.501,7.501 0 0,0 12.449,5.386 M19.603 23.518 A3.880,3.880 0 0,1 15.723,19.637 A3.880,3.880 0 0,1 19.603,15.757 A3.880,3.880 0 0,1 23.483,19.637 A3.880,3.880 0 0,1 19.603,23.518 M31.603 23.650 A4.013,4.013 0 0,1 27.590,19.637 A4.013,4.013 0 0,1 31.603,15.625 A4.013,4.013 0 0,1 35.616,19.637 A4.013,4.013 0 0,1 31.603,23.650 M21.586 35.332 L21.586,31.332 L29.586,31.332 L29.586,35.332 L21.586,35.332 z"
+    cgoChamber = window.svgToCgoSVG(chamber)
+    cmbr = cobj(cgoChamber, "SHAPE", {
+            "fillColor": color,
+            "border": border,
+            "strokeColor": "tan",
+            "lineWidth": linewidth })
+            
+            
+            
+    cmbr.translate(0, 20)    
+            
+ 
+   
+    
+    
+    # hole 為原點位置
+    #hole = cobj(shapedefs.circle(4), "PATH") 
+    #cmbr.appendPath(hole) 
+
+  
+    # 放大 1 倍
+    cgo.render(cmbr, x, y, 3, rot)
+    
+O(0, 0, 0, 0, 0, "red", True, 4)
+&lt;/script&gt;
+
+
+'''
+    return outstring
+</t>
 </tnodes>
 </leo_file>
