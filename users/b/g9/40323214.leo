@@ -28,8 +28,8 @@
 </v>
 </v>
 </v>
-<v t="amd.20160501215545.1"><vh>wsgi 程式部份</vh>
-<v t="leo.20160519095815.1" a="E"><vh>@clean bg9_40323214_2.py</vh>
+<v t="amd.20160501215545.1" a="E"><vh>wsgi 程式部份</vh>
+<v t="leo.20160519095815.1"><vh>@clean bg9_40323214_2.py</vh>
 <v t="leo.20160519095815.2"><vh>bg9_40323214_2 declarations</vh></v>
 <v t="leo.20160519095815.3"><vh>a</vh></v>
 <v t="leo.20160519095815.4"><vh>b</vh></v>
@@ -73,8 +73,9 @@
 <v t="leo.20160526105319.1"><vh>abc</vh></v>
 <v t="leo.20160526112626.1"><vh>threegear</vh></v>
 <v t="leo.20160616092811.1"><vh>threegear2</vh></v>
+<v t="leo.20160623115947.1"><vh>mouse</vh></v>
 </v>
-<v t="amd.20160501221015.1" a="E"><vh>@path ./../../../</vh>
+<v t="amd.20160501221015.1"><vh>@path ./../../../</vh>
 <v t="amd.20160501221001.1" a="E"><vh>@clean myflaskapp.py</vh>
 <v t="amd.20160501221001.2"><vh>myflaskapp declarations</vh></v>
 <v t="amd.20160501221001.3"><vh>index</vh></v>
@@ -3140,6 +3141,75 @@ var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s)
 '''
     return outstring
 
+</t>
+<t tx="leo.20160623115947.1">@bg9_40323214.route('/mouse')
+def hw_link():
+    outstring = '''
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;網際 2D 繪圖&lt;/title&gt;
+    &lt;!-- IE 9: display inline SVG --&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=9"&gt;
+&lt;script type="text/javascript" src="http://brython.info/src/brython_dist.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango-8v03.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango2D-6v13.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/CangoAxes-1v33.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+&lt;script type="text/python"&gt;
+from javascript import JSConstructor
+from browser import window
+import math
+cango = JSConstructor(window.Cango)
+cobj = JSConstructor(window.Cobj)
+shapedefs = window.shapeDefs
+obj2d = JSConstructor(window.Obj2D)
+cgo = cango("plotarea")
+cgo.setWorldCoords(-250, -250, 500, 500) 
+
+        
+#cgo.drawText("使用 Cango 繪圖程式庫!", 0, 0, {"fontSize":60, "fontWeight": 1200, "lorg":5 })
+deg = math.pi/180  
+def O(x, y, rx, ry, rot, color, border, linewidth):
+    # 旋轉必須要針對相對中心 rot not working yet
+    chamber = "M19.664 6.207 A15.000,15.000 0 0,0 6.207,19.664 A15.000,15.000 0 0,0 16.780,35.488 A25.000,25.000 0 0,0 27.028,61.774 A25.000,25.000 0 0,0 55.241,61.774 A25.000,25.000 0 0,0 65.488,35.488 A15.000,15.000 0 0,0 76.062,19.664 A15.000,15.000 0 0,0 62.605,6.207 A15.000,15.000 0 0,0 46.780,16.780 A25.000,25.000 0 0,0 35.488,16.780 A15.000,15.000 0 0,0 19.664,6.207 M41.134 45.134 A4.000,4.000 0 0,1 37.134,41.134 A4.000,4.000 0 0,1 41.134,37.134 A4.000,4.000 0 0,1 45.134,41.134 A4.000,4.000 0 0,1 41.134,45.134 M28.634 36.510 A7.376,7.376 0 0,1 21.259,29.134 A7.376,7.376 0 0,1 28.634,21.759 A7.376,7.376 0 0,1 36.010,29.134 A7.376,7.376 0 0,1 28.634,36.510 M53.634 36.623 A7.489,7.489 0 0,1 46.146,29.134 A7.489,7.489 0 0,1 53.634,21.646 A7.489,7.489 0 0,1 61.123,29.134 A7.489,7.489 0 0,1 53.634,36.623 M39.720 56.842 L39.720,51.842 L42.720,51.842 L42.720,56.842 L39.720,56.842 "
+    cgoChamber = window.svgToCgoSVG(chamber)
+    cmbr = cobj(cgoChamber, "SHAPE", {
+            "fillColor": color,
+            "border": border,
+            "strokeColor": "tan",
+            "lineWidth": linewidth })
+            
+            
+            
+    cmbr.translate(0, 20)    
+            
+ 
+   
+    
+    
+    # hole 為原點位置
+    #hole = cobj(shapedefs.circle(4), "PATH") 
+    #cmbr.appendPath(hole) 
+
+  
+    # 放大 1 倍
+    cgo.render(cmbr, x, y, 3, rot)
+    
+O(0, 0, 0, 0, 0, "red", True, 4)
+&lt;/script&gt;
+
+
+'''
+    return outstring
 </t>
 </tnodes>
 </leo_file>
