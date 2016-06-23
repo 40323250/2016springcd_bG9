@@ -2329,7 +2329,7 @@ def O(x, y, rx, ry, rot, color, border, linewidth):
 
   
     # 放大 1 倍
-    cgo.render(cmbr, x, y, 1, rot)
+    cgo.render(cmbr, x, y, 3, rot)
     
 O(0, 0, 0, 0, 0, "red", True, 4)
 &lt;/script&gt;
