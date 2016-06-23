@@ -2212,8 +2212,8 @@ app.secret_key = 'A0Zr9@8j/3yX R~XHH!jmN]LWX/,?R@T'
 
 
 </t>
-<t tx="leo.20160623104405.1">@bg9_40323233_1.route('/623hw')
-def 623hw():
+<t tx="leo.20160623104405.1">@bg9_40323233_1.route('/hw623')
+def hw623():
     outstring = '''
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;

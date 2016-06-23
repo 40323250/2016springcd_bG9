@@ -28,8 +28,8 @@
 </v>
 </v>
 </v>
-<v t="amd.20160501215545.1"><vh>wsgi 程式部份</vh>
-<v t="leo.20160519105006.1"><vh>@clean bg9_40323230.py</vh>
+<v t="amd.20160501215545.1" a="E"><vh>wsgi 程式部份</vh>
+<v t="leo.20160519105006.1" a="E"><vh>@clean bg9_40323230.py</vh>
 <v t="leo.20160519105006.2"><vh>bg9_40323230 declarations</vh></v>
 <v t="leo.20160519105006.3"><vh>a</vh></v>
 <v t="leo.20160519105006.4"><vh>draw_a</vh></v>
@@ -39,6 +39,7 @@
 <v t="leo.20160606112539.1"><vh>drawcircle72</vh></v>
 <v t="leo.20160526103254.1"><vh>threegear</vh></v>
 <v t="leo.20160605154840.1"><vh>fivegear</vh></v>
+<v t="leo.20160623115425.1"><vh>CR</vh></v>
 </v>
 <v t="leo.20160519112941.1"><vh>@clean bg9_40323230_2.py</vh>
 <v t="leo.20160519112941.2"><vh>bg9_40323230_2 declarations</vh></v>
@@ -1637,5 +1638,73 @@ x1, y1 = mychain.basic_rot('''+str(a)+","+str(b)+", "+str(sec_degree)+''')
     
     return outstring
     </t>
+<t tx="leo.20160623115425.1">@bg9_40323230.route('/CR')
+def CR():
+    outstring = '''
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;網際 2D 繪圖&lt;/title&gt;
+    &lt;!-- IE 9: display inline SVG --&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=9"&gt;
+&lt;script type="text/javascript" src="http://brython.info/src/brython_dist.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango-8v03.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango2D-6v13.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/CangoAxes-1v33.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+&lt;canvas id="plotarea" width="800" height="800"&gt;&lt;/canvas&gt;
+&lt;script type="text/python"&gt;
+from javascript import JSConstructor
+from browser import window
+import math
+cango = JSConstructor(window.Cango)
+cobj = JSConstructor(window.Cobj)
+shapedefs = window.shapeDefs
+obj2d = JSConstructor(window.Obj2D)
+cgo = cango("plotarea")
+cgo.setWorldCoords(-250, -250, 500, 500) 
+
+        
+#cgo.drawText("使用 Cango 繪圖程式庫!", 0, 0, {"fontSize":60, "fontWeight": 1200, "lorg":5 })
+deg = math.pi/180  
+def O(x, y, rx, ry, rot, color, border, linewidth):
+    # 旋轉必須要針對相對中心 rot not working yet
+    chamber = "M55.000 5.000 A50.000,50.000 0 0,0 5.000,55.000 A50.000,50.000 0 0,0 55.000,105.000 A50.000,50.000 0 0,0 105.000,55.000 A50.000,50.000 0 0,0 55.000,5.000 M17.835 50.000 A37.500,37.500 0 0,1 50.000,17.835 L50.000,23.835 L22.500,50.000 L17.835,50.000 M50.000 92.165 A37.500,37.500 0 0,1 17.835,60.000 L22.500,60.000 L50.000,86.165 L50.000,92.165 M60.000 17.835 A37.500,37.500 0 0,1 92.165,50.000 L86.165,50.000 L60.000,23.835 L60.000,17.835 M92.165 60.000 A37.500,37.500 0 0,1 60.000,92.165 L60.000,86.165 L86.165,60.000 L92.165,60.000  z"
+    cgoChamber = window.svgToCgoSVG(chamber)
+    cmbr = cobj(cgoChamber, "SHAPE", {
+            "fillColor": color,
+            "border": border,
+            "strokeColor": "tan",
+            "lineWidth": linewidth })
+            
+            
+            
+    cmbr.translate(0, 20)    
+            
+ 
+   
+    
+    
+    # hole 為原點位置
+    #hole = cobj(shapedefs.circle(4), "PATH") 
+    #cmbr.appendPath(hole) 
+
+  
+    # 放大 1 倍
+    cgo.render(cmbr, x, y, 3, rot)
+    
+O(0, 0, 0, 0, 0, "red", True, 4)
+&lt;/script&gt;
+
+
+'''
+    return outstring</t>
 </tnodes>
 </leo_file>
