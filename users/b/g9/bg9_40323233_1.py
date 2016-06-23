@@ -547,8 +547,8 @@ s.line(0, 0, 100, 100).attr({ 'fill': "silver", 'stroke': "black", 'strokeWidth'
 </html>
 '''
     return outstring
-@bg9_40323233_1.route('/623hw')
-def 623hw():
+@bg9_40323233_1.route('/hw623')
+def hw623():
     outstring = '''
 <!DOCTYPE html>
 <html>
