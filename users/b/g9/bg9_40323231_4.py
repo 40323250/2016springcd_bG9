@@ -149,3 +149,71 @@ spur(cx+pr1+pr2+pr2+pr3+pr3+pr4, cy, m, n4, pa, 180-180/n4+(180-180/n3)*n3/n4)
 </script>
 '''
     return outstring
+@bg9_40323231_4.route('/rabbit')
+def rabbit():
+    outstring = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>網際 2D 繪圖</title>
+    <!-- IE 9: display inline SVG -->
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+<script type="text/javascript" src="http://brython.info/src/brython_dist.js"></script>
+<script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango-8v03.js"></script>
+<script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/Cango2D-6v13.js"></script>
+<script type="text/javascript" src="http://cptocadp-2015fallhw.rhcloud.com/static/CangoAxes-1v33.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+brython(1);
+}
+</script>
+<canvas id="plotarea" width="800" height="800"></canvas>
+<script type="text/python">
+from javascript import JSConstructor
+from browser import window
+import math
+cango = JSConstructor(window.Cango)
+cobj = JSConstructor(window.Cobj)
+shapedefs = window.shapeDefs
+obj2d = JSConstructor(window.Obj2D)
+cgo = cango("plotarea")
+cgo.setWorldCoords(-250, -250, 500, 500) 
+
+        
+#cgo.drawText("使用 Cango 繪圖程式庫!", 0, 0, {"fontSize":60, "fontWeight": 1200, "lorg":5 })
+deg = math.pi/180  
+def O(x, y, rx, ry, rot, color, border, linewidth):
+    # 旋轉必須要針對相對中心 rot not working yet
+    chamber = "M47.962 64.320 A22.500,22.500 0 0,0 52.830,36.332 L52.838,12.870 A4.982,4.982 0 0,0 50.902,7.129 A4.982,4.982 0 0,0 44.855,7.503 A4.982,4.982 0 0,0 43.641,13.438 L43.402,19.755 L43.402,27.279 A22.500,22.500 0 0,0 25.059,26.362 L24.030,11.001 A4.982,4.982 0 0,0 19.052,6.009 A4.982,4.982 0 0,0 14.067,10.993 L12.912,37.616 A22.500,22.500 0 0,0 19.568,65.233 A22.500,22.500 0 0,0 47.962,64.320  z"
+    cgoChamber = window.svgToCgoSVG(chamber)
+    cmbr = cobj(cgoChamber, "SHAPE", {
+            "fillColor": color,
+            "border": border,
+            "strokeColor": "tan",
+            "lineWidth": linewidth })
+            
+            
+            
+    cmbr.translate(0, 20)    
+            
+ 
+   
+    
+    
+    # hole 為原點位置
+    #hole = cobj(shapedefs.circle(4), "PATH") 
+    #cmbr.appendPath(hole) 
+
+  
+    # 放大 1 倍
+    cgo.render(cmbr, x, y, 3, rot)
+    
+O(0, 0, 0, 0, 0, "red", True, 4)
+</script>
+
+
+'''
+    return outstring
