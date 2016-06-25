@@ -5,6 +5,8 @@ Pelican:
 
 40323233 : https://40323250.github.io/2016springcd_bG9/static/blog/40323233-qi-mo-bao-gao.html
 
+40323231 : https://40323250.github.io/2016springcd_bG9/static/blog/40323231-qi-mo-zuo-ye.html
+
 ----------------------------------------------------------------------
 
 自製2d繪圖:
@@ -15,7 +17,7 @@ Pelican:
 
 40323233 : http://cdw11-40323250.rhcloud.com/bg9_40323233_1/hw623
 
-40323231 : http://cdw11-40323250.rhcloud.com/bg9_40323231_4/rabbit
+40323231 : http://cdw11-40323250.rhcloud.com/bg9_40323231_4/rabbit_1
 
 40323214 : http://cdw11-40323250.rhcloud.com/bg9_40323214/mouse
 
