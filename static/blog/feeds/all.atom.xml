@@ -244,7 +244,6 @@ shapedefs = window.shapeDefs
 obj2d = JSConstructor(window.Obj2D)
 cgo = cango("plotarea")
 cgo.setWorldCoords(-250, -250, 500, 500) &lt;/p&gt;
-&lt;h1&gt;cgo.drawText("使用 Cango 繪圖程式庫!", 0, 0, {"fontSize":60, "fontWeight": 1200, "lorg":5 })&lt;/h1&gt;
 &lt;p&gt;deg = math.pi/180&lt;br /&gt;
 def O(x, y, rx, ry, rot, color, border, linewidth):
     # 旋轉必須要針對相對中心 rot not working yet
@@ -274,38 +273,14 @@ L20.402,33.696
 L20.402,30.043 
 L33.424,30.043 
 L33.424,33.696 z"&lt;/p&gt;
-&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;cgoChamber = window.svgToCgoSVG(chamber)
-cmbr = cobj(cgoChamber, &amp;quot;SHAPE&amp;quot;, {
-        &amp;quot;fillColor&amp;quot;: color,
-        &amp;quot;border&amp;quot;: border,
-        &amp;quot;strokeColor&amp;quot;: &amp;quot;tan&amp;quot;,
-        &amp;quot;lineWidth&amp;quot;: linewidth })
-
-cmbr.translate(0, 0)
-
-# hole 為原點位置
-#hole = cobj(shapedefs.circle(4), &amp;quot;PATH&amp;quot;) 
-#cmbr.appendPath(hole)
-
-# 放大 1 倍
-cgo.render(cmbr, x, y, 3, rot)
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-
+&lt;p&gt;cgoChamber = window.svgToCgoSVG(chamber)
+cmbr = cobj(cgoChamber, "SHAPE", {
+            "fillColor": color,
+            "border": border,
+            "strokeColor": "tan",
+            "lineWidth": linewidth })&lt;/p&gt;
+&lt;p&gt;cmbr.translate(0, 0)   &lt;/p&gt;
+&lt;p&gt;cgo.render(cmbr, x, y, 3, rot)&lt;/p&gt;
 &lt;p&gt;O(0, 0, 0, 0, 0, "red", True, 4)
 &amp;lt;/script&amp;gt;&lt;/p&gt;
 &lt;p&gt;'''
