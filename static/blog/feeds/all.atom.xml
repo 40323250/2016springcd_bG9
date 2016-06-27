@@ -248,27 +248,58 @@ cgo.setWorldCoords(-250, -250, 500, 500) &lt;/p&gt;
 &lt;p&gt;deg = math.pi/180&lt;br /&gt;
 def O(x, y, rx, ry, rot, color, border, linewidth):
     # 旋轉必須要針對相對中心 rot not working yet
-    chamber = "M14.920 13.227 A15.699,15.699 0 0,0 14.990,34.619 A15.699,15.699 0 0,0 36.332,36.082 A15.699,15.699 0 0,0 39.320,14.900 A5.310,5.310 0 0,0 40.835,9.059 A5.310,5.310 0 0,0 35.909,5.573 A5.310,5.310 0 0,0 30.904,8.943 A15.594,15.594 0 0,0 23.234,8.637 A4.843,4.843 0 0,0 19.028,5.275 A4.843,4.843 0 0,0 14.315,7.877 A4.843,4.843 0 0,0 14.920,13.227 M18.583 19.369 A2.546,2.546 0 0,1 21.128,16.824 A2.546,2.546 0 0,1 23.674,19.369 A2.546,2.546 0 0,1 21.128,21.915 A2.546,2.546 0 0,1 18.583,19.369 M30.318 19.106 A2.399,2.399 0 0,1 32.717,16.707 A2.399,2.399 0 0,1 35.117,19.106 A2.399,2.399 0 0,1 32.717,21.506 A2.399,2.399 0 0,1 30.318,19.106 M33.424 33.696 L20.402,33.696 L20.402,30.043 L33.424,30.043 L33.424,33.696 z"
-    cgoChamber = window.svgToCgoSVG(chamber)
-    cmbr = cobj(cgoChamber, "SHAPE", {
-            "fillColor": color,
-            "border": border,
-            "strokeColor": "tan",
-            "lineWidth": linewidth })&lt;/p&gt;
-&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
-2
-3
-4
-5
-6
-7
-8
-9&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;cmbr.translate(0, 0)
+    chamber = "M14.920 13.227 
+A15.699,15.699 0 0,0 14.990,34.619 
+A15.699,15.699 0 0,0 36.332,36.082 
+A15.699,15.699 0 0,0 39.320,14.900 
+A5.310,5.310 0 0,0 40.835,9.059 
+A5.310,5.310 0 0,0 35.909,5.573 
+A5.310,5.310 0 0,0 30.904,8.943 
+A15.594,15.594 0 0,0 23.234,8.637 
+A4.843,4.843 0 0,0 19.028,5.275 
+A4.843,4.843 0 0,0 14.315,7.877 
+A4.843,4.843 0 0,0 14.920,13.227 
+M18.583 19.369 
+A2.546,2.546 0 0,1 21.128,16.824 
+A2.546,2.546 0 0,1 23.674,19.369 
+A2.546,2.546 0 0,1 21.128,21.915 
+A2.546,2.546 0 0,1 18.583,19.369 
+M30.318 19.106 
+A2.399,2.399 0 0,1 32.717,16.707 
+A2.399,2.399 0 0,1 35.117,19.106 
+A2.399,2.399 0 0,1 32.717,21.506 
+A2.399,2.399 0 0,1 30.318,19.106 
+M33.424 33.696 
+L20.402,33.696 
+L20.402,30.043 
+L33.424,30.043 
+L33.424,33.696 z"&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;cgoChamber = window.svgToCgoSVG(chamber)
+cmbr = cobj(cgoChamber, &amp;quot;SHAPE&amp;quot;, {
+        &amp;quot;fillColor&amp;quot;: color,
+        &amp;quot;border&amp;quot;: border,
+        &amp;quot;strokeColor&amp;quot;: &amp;quot;tan&amp;quot;,
+        &amp;quot;lineWidth&amp;quot;: linewidth })
+
+cmbr.translate(0, 0)
 
 # hole 為原點位置
 #hole = cobj(shapedefs.circle(4), &amp;quot;PATH&amp;quot;) 
 #cmbr.appendPath(hole)
-
 
 # 放大 1 倍
 cgo.render(cmbr, x, y, 3, rot)
