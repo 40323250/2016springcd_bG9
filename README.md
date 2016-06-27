@@ -7,6 +7,8 @@ Pelican:
 
 40323231 : https://40323250.github.io/2016springcd_bG9/static/blog/40323231-qi-mo-zuo-ye.html
 
+40323230 : https://40323250.github.io/2016springcd_bG9/static/blog/40323230-qi-mo-bao-gao.html
+
 ----------------------------------------------------------------------
 
 自製2d繪圖:
