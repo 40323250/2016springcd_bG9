@@ -60,7 +60,7 @@
 <v t="leo.20160519095815.29"><vh>snap_link</vh></v>
 <v t="leo.20160519095815.30"><vh>snap_gear</vh></v>
 </v>
-<v t="leo.20160519095825.1" a="E"><vh>@clean bg9_40323214.py</vh>
+<v t="leo.20160519095825.1"><vh>@clean bg9_40323214.py</vh>
 <v t="leo.20160519095825.2"><vh>bg9_40323214 declarations</vh></v>
 <v t="leo.20160519095825.3"><vh>circle36</vh></v>
 <v t="leo.20160519095825.4"><vh>circle35</vh></v>
